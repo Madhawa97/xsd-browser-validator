@@ -1,11 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
-import XSDValidator from './XSDValidator';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import ValidatorPage from './pages/ValidatorPage';
 
 function App() {
   return (
     <div className="App">
-      <XSDValidator />
+      <Header />
+      <ValidatorPage />
+      <Footer />
     </div>
   );
 }
