@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { validateXML } from '../services/xmlValidator';
 import TextArea from '../components/TextArea';
 import Button from '../components/Button';
 import ResultCard from '../components/ResultCard';
+import Toggle from '../components/Toggle';
 
 const VALID_XML = `<section><heading/><p/><img/><p/><p/><p/><p/><ul/><p/><ul/><p/><ul/><table/><section/></section>`;
 const INVALID_XML = `<section><heading/><p/><img/><p/><p/><p/><p/><ul/><p/><ul/><p/><ul/><section/><table/></section>`;
@@ -56,6 +57,7 @@ export default function ValidatorPage() {
   const [xsd, setXsd] = useState(DEFAULT_XSD);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
+  const [autoValidate, setAutoValidate] = useState(true);
 
   const runValidation = async () => {
     setLoading(true);
@@ -70,8 +72,16 @@ export default function ValidatorPage() {
     }
   };
 
+  // Debounced auto validation
+  useEffect(() => {
+    if (!autoValidate) return;
+    const handle = setTimeout(() => { runValidation(); }, 450);
+    return () => clearTimeout(handle);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [xml, xsd, autoValidate]);
+
   return (
-    <main className="validator-page container">
+    <main className="validator-page container" role="main">
       <div className="grid">
         <TextArea
           id="xml-input"
@@ -89,12 +99,13 @@ export default function ValidatorPage() {
         />
       </div>
 
-      <div className="actions">
+    <div className="actions" aria-label="Validation actions">
         <div className="left">
           <Button onClick={() => setXml(VALID_XML)} variant="success">Load valid XML</Button>
           <Button onClick={() => setXml(INVALID_XML)} variant="danger">Load invalid XML</Button>
         </div>
         <div className="right">
+      <Toggle id="auto-validate" checked={autoValidate} onChange={setAutoValidate} label="Auto validate" />
           <Button onClick={runValidation} loading={loading}>Validate XML against XSD</Button>
         </div>
       </div>
