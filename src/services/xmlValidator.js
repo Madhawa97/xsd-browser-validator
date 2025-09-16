@@ -1,30 +1,31 @@
-// Lightweight XML/XSD validation service using xmllint-wasm
-// Contract:
-// - validateXML(xml: string, xsd: string) -> Promise<{ valid: boolean, message: string, method: string }>
-// - Throws on unexpected failures with a human-friendly error message
+import { XmlDocument, XsdValidator, XmlValidateError } from 'libxml2-wasm';
 
 export async function validateXML(xml, xsd) {
+  let xmlDoc;
+  let xsdDoc;
+  let validator;
+    
   try {
-    const xmllint = await import('xmllint-wasm');
 
-    let result;
-    if (typeof xmllint.validateXML === 'function') {
-      result = await xmllint.validateXML({ xml, schema: xsd });
-    } else if (typeof xmllint.default === 'function') {
-      const validator = xmllint.default();
-      result = await validator.validateXML({ xml, schema: xsd });
-    } else {
-      throw new Error('Unsupported xmllint-wasm API');
-    }
 
-    return {
-      valid: await result.valid,
-      message: String(await result.rawOutput ?? ''),
-      method: 'xmllint-wasm',
-    };
+    xsdDoc = XmlDocument.fromString(xsd);
+    validator = XsdValidator.fromDoc(xsdDoc);
+
+    xmlDoc = XmlDocument.fromString(xml);
+    validator.validate(xmlDoc);
+
+    return { valid: true, message: 'success', method: 'libxml2-wasm' };
+
   } catch (err) {
-    // Normalize errors to a concise message
-    const message = err?.message || 'Unknown validation error';
+
+    if (err instanceof XmlValidateError) {
+      return Promise.resolve({ valid: false, message: err.message });
+    }
+    const message = err instanceof Error ? err.message : 'Unknown validation error';
     throw new Error(`Validation failed: ${message}`);
+  } finally {
+    xmlDoc?.dispose();
+    validator?.dispose();
+    xsdDoc?.dispose();
   }
 }

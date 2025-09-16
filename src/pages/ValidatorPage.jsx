@@ -64,7 +64,7 @@ export default function ValidatorPage() {
       const res = await validateXML(xml, xsd);
       setResult(res);
     } catch (err) {
-      setResult({ valid: false, message: err.message, method: 'xmllint-wasm' });
+      setResult({ valid: false, message: err.message, method: 'libxml2-wasm' });
     } finally {
       setLoading(false);
     }

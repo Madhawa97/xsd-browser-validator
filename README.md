@@ -1,6 +1,6 @@
 # XSD Browser Validator
 
-Validate XML against an XSD schema directly in your browser using `xmllint-wasm`. No server required.
+Validate XML against an XSD schema directly in your browser using `libxml2-wasm`. No server required.
 
 ## Quick start
 
@@ -28,7 +28,7 @@ src/
 	pages/
 		ValidatorPage.jsx
 	services/
-		xmlValidator.js  # Validation abstraction around xmllint-wasm
+		xmlValidator.js  # Validation abstraction around libxml2-wasm
 	App.js
 	App.css
 	index.js
@@ -36,5 +36,5 @@ src/
 
 ## Notes
 
-`xmllint-wasm` is loaded dynamically to keep the initial bundle lean. All validation happens locally in the browser.
+`libxml2-wasm` is loaded dynamically to keep the initial bundle lean. All validation happens locally in the browser.
 
