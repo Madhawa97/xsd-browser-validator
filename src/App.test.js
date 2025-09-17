@@ -3,5 +3,5 @@ import App from './App';
 
 test('renders app header', () => {
   render(<App />);
-  expect(screen.getByText(/XSD Browser Validator/i)).toBeInTheDocument();
+  expect(screen.getByText(/XSD Validator/i)).toBeInTheDocument();
 });

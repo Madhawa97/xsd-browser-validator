@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-export default function TextArea({ id, label, value, onChange, rows = 14, placeholder }) {
+export default function TextArea({ id, label, value, onChange, rows = 28, placeholder }) {
   const onDrop = useCallback(async (e) => {
     e.preventDefault();
     e.stopPropagation();

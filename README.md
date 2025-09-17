@@ -1,4 +1,4 @@
-# XSD Browser Validator
+# XSD Validator
 
 Validate XML against an XSD schema directly in your browser using `libxml2-wasm`. No server required.
 

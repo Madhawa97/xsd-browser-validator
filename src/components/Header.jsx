@@ -6,7 +6,7 @@ export default function Header({ theme = 'dark', onToggleTheme }) {
     <header className="app-header">
       <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
-          <h1>XSD Browser Validator</h1>
+          <h1>XSD Validator</h1>
           <p className="subtitle">Validate XML against XSD, entirely in your browser.</p>
         </div>
         <button className="btn" aria-label="Toggle theme" onClick={onToggleTheme}>
