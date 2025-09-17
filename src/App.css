@@ -137,7 +137,7 @@ body {
   cursor: pointer;
   transition: transform 80ms ease, box-shadow 140ms ease, border-color 140ms ease, background 140ms ease;
 }
-.btn:hover { transform: translateY(-1px); border-color: #3a4a80; box-shadow: 0 10px 26px rgba(0,0,0,0.25); background: color-mix(in oklab, var(--ghost), var(--surface-2) 70%); }
+.btn:hover { transform: translateY(-1px); border-color: #3a4a80; box-shadow: 0 10px 26px rgba(0, 3, 199, 0.274); background: color-mix(in oklab, var(--ghost), var(--surface-2) 70%); }
 .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
 .btn.primary { border-color: color-mix(in oklab, var(--primary-600), transparent 30%); background: color-mix(in oklab, var(--primary) 16%, var(--surface)); }
